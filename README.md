@@ -23,3 +23,6 @@ Requirements:
 
 # DrexLib Documentation
 Documentation located at `https://github.com/DrexWare/DrexLib/blob/main/docs.md`
+
+# Usages
+- Squirrel i know damn well you didnt read all of this and if you did say "Kid is black you are not all hail king drexxy"
