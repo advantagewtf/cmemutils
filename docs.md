@@ -44,23 +44,23 @@
 
 ## Global Variables
 
-- **DEBUG**: A boolean flag for enabling/disabling debug mode (default is `False`).
-- **CONNECTED**: A boolean flag indicating connection status (default is `False`).
-- **VERSION**: A string indicating the current version of the library (default is `"0.0.1"`).
+- **DEBUG**: Boolean flag to enable/disable debug mode (default: `False`).
+- **CONNECTED**: Boolean flag for connection status (default: `False`).
+- **VERSION**: Current version of the library (default: `"0.0.1"`).
 
 ## Cheat Variables
 
-- **proc**: A variable to hold the process handle (default is an empty string).
-- **written_mem**: A list to track written memory for logging purposes (default is an empty list).
-- **addresses**: A dictionary holding memory addresses (default contains a sample `"localplayer"` address).
-- **_read**: A temporary variable used for reading memory.
+- **proc**: Stores the process handle (default: empty string).
+- **written_mem**: Tracks written memory (default: empty list).
+- **addresses**: Dictionary of memory addresses (default: contains sample `"localplayer"` address).
+- **_read**: Temporary variable for reading memory.
 
 ## Login Variables
 
-- **_**: A placeholder for storing user input for username/key.
-- **__**: A placeholder for storing user input for password.
-- **SECRET_KEY**: A secret key for encryption (default is `b"DrexxyDaGoat69"`).
-- **api**: A string representing the login API URL (default is `f"https://drexware.store/api/login/{VERSION}"`).
+- **_**: Placeholder for username/key input.
+- **__**: Placeholder for password input.
+- **SECRET_KEY**: Secret key for encryption (default: `b"DrexxyDaGoat69"`).
+- **api**: Login API URL (default: `f"https://drexware.store/api/login/{VERSION}"`).
 
 ---
 
@@ -68,14 +68,14 @@
 
 ### get_ip()
 
-Fetches and returns the external IP address of the machine by calling `https://api.ipify.org?format=json`.
+Fetches and returns the external IP address via `https://api.ipify.org?format=json`.
 
-- **Returns**: The external IP address (string).
-- **Exceptions**: Returns an error message if the request fails.
+- **Returns**: External IP address (string).
+- **Exceptions**: Returns error message if request fails.
 
 ### check_internet()
 
-Checks whether the machine is connected to the internet by attempting to access `https://www.google.com`.
+Checks internet connectivity by accessing `https://www.google.com`.
 
 - **Returns**: `True` if connected, `False` otherwise.
 
@@ -85,17 +85,17 @@ Checks whether the machine is connected to the internet by attempting to access 
 
 ### rand_string(length=16)
 
-Generates and returns a random string of the specified length (default is 16).
+Generates a random string of specified length (default: 16).
 
-- **Args**: `length` (int): The length of the random string to generate (default is 16).
-- **Returns**: A random string consisting of ASCII letters.
+- **Args**: `length` (int): Length of the random string (default: 16).
+- **Returns**: Random string of ASCII letters.
 
 ### randint(low: int, high: int)
 
-Returns a random integer between the specified low and high bounds (inclusive).
+Returns a random integer between `low` and `high`.
 
-- **Args**: `low` (int), `high` (int): The range for the random integer.
-- **Returns**: A random integer between `low` and `high`.
+- **Args**: `low` (int), `high` (int): Range for random integer.
+- **Returns**: Random integer between `low` and `high`.
 
 ---
 
@@ -103,48 +103,48 @@ Returns a random integer between the specified low and high bounds (inclusive).
 
 ### clear()
 
-Clears the terminal screen based on the operating system (Windows: `cls`, other OS: `clear`).
+Clears the terminal screen (`cls` for Windows, `clear` for others).
 
 ### run_command(cmd: str, capture_output=False)
 
-Executes a shell command. If `capture_output` is `True`, it returns the command output.
+Executes a shell command; returns output if `capture_output` is `True`.
 
 - **Args**: 
-  - `cmd` (str): The command to execute.
-  - `capture_output` (bool): Whether to capture and return the command's output (default is `False`).
-- **Returns**: Command output if `capture_output` is `True`, otherwise `None`.
+  - `cmd` (str): Command to execute.
+  - `capture_output` (bool): Capture command output (default: `False`).
+- **Returns**: Command output if `capture_output` is `True`.
 
 ### check_disk_space(drive: str = "C:")
 
-Checks the free and total space on the specified drive (default is `"C:"`).
+Checks disk space on specified drive (default: `"C:"`).
 
 - **Args**: 
-  - `drive` (str): The drive letter (default is `"C:"`).
-- **Returns**: A string indicating the available and total disk space in GB.
+  - `drive` (str): Drive letter (default: `"C:"`).
+- **Returns**: Available and total disk space in GB.
 
 ### list_running_processes()
 
-Returns a list of currently running processes using the `tasklist` command.
+Returns a list of currently running processes.
 
-- **Returns**: A string with the list of processes.
+- **Returns**: List of running processes (string).
 
 ### get_system_info()
 
-Retrieves and returns system information using the `systeminfo` command.
+Retrieves system information.
 
-- **Returns**: A string containing system information.
+- **Returns**: System information (string).
 
 ### shutdown_system(delay)
 
-Shuts down the system after the specified delay (in seconds).
+Shuts down system after specified delay (seconds).
 
-- **Args**: `delay` (int): The delay in seconds before shutting down.
+- **Args**: `delay` (int): Delay before shutdown.
 
 ### restart_system(delay)
 
-Restarts the system after the specified delay (in seconds).
+Restarts system after specified delay (seconds).
 
-- **Args**: `delay` (int): The delay in seconds before restarting.
+- **Args**: `delay` (int): Delay before restart.
 
 ---
 
@@ -154,71 +154,71 @@ Restarts the system after the specified delay (in seconds).
 
 #### get_current_process()
 
-Retrieves the handle of the current process using `kernel32.dll`.
+Retrieves current process handle.
 
 - **Returns**: Process handle.
 
 #### close_handle(handle)
 
-Closes a specified handle using `kernel32.dll`.
+Closes specified handle.
 
-- **Args**: `handle` (HANDLE): The handle to close.
+- **Args**: `handle` (HANDLE): Handle to close.
 - **Returns**: `True` if successful, `False` if failed.
 
 #### terminate_process(process_handle, exit_code)
 
-Terminates a process using `kernel32.dll`.
+Terminates a process.
 
 - **Args**: 
-  - `process_handle` (HANDLE): The process handle.
-  - `exit_code` (UINT): The exit code for the process.
+  - `process_handle` (HANDLE): Process handle.
+  - `exit_code` (UINT): Exit code.
 - **Returns**: `True` if successful, `False` if failed.
 
 ### Memory Management Functions
 
 #### read_process_memory(process_handle, base_address, buffer, size, bytes_read)
 
-Reads memory from a process using `kernel32.dll`.
+Reads memory from a process.
 
 - **Args**:
-  - `process_handle` (HANDLE): The process handle.
-  - `base_address` (LPVOID): The memory address to read from.
-  - `buffer` (LPVOID): A buffer to store the read data.
-  - `size` (SIZE_T): The number of bytes to read.
-  - `bytes_read` (SIZE_T*): A pointer to store the number of bytes read.
+  - `process_handle` (HANDLE): Process handle.
+  - `base_address` (LPVOID): Memory address.
+  - `buffer` (LPVOID): Buffer for data.
+  - `size` (SIZE_T): Bytes to read.
+  - `bytes_read` (SIZE_T*): Pointer to bytes read.
 - **Returns**: `True` if successful, `False` if failed.
 
 #### write_process_memory(process_handle, base_address, buffer, size, bytes_written)
 
-Writes memory to a process using `kernel32.dll`.
+Writes memory to a process.
 
 - **Args**:
-  - `process_handle` (HANDLE): The process handle.
-  - `base_address` (LPVOID): The memory address to write to.
-  - `buffer` (LPVOID): The data to write.
-  - `size` (SIZE_T): The number of bytes to write.
-  - `bytes_written` (SIZE_T*): A pointer to store the number of bytes written.
+  - `process_handle` (HANDLE): Process handle.
+  - `base_address` (LPVOID): Memory address.
+  - `buffer` (LPVOID): Data to write.
+  - `size` (SIZE_T): Bytes to write.
+  - `bytes_written` (SIZE_T*): Pointer to bytes written.
 - **Returns**: `True` if successful, `False` if failed.
 
 ### Thread Management Functions
 
 #### create_thread(thread_attributes, stack_size, start_address, param, creation_flags)
 
-Creates a new thread using `kernel32.dll`.
+Creates a new thread.
 
 - **Args**:
-  - `thread_attributes` (LPVOID): The thread attributes.
-  - `stack_size` (DWORD): The stack size for the thread.
-  - `start_address` (LPVOID): The function to start the thread.
-  - `param` (LPVOID): A parameter to pass to the thread function.
-  - `creation_flags` (DWORD): Flags for thread creation.
-- **Returns**: Thread handle if successful, `None` if failed.
+  - `thread_attributes` (LPVOID): Thread attributes.
+  - `stack_size` (DWORD): Stack size.
+  - `start_address` (LPVOID): Start function.
+  - `param` (LPVOID): Function parameter.
+  - `creation_flags` (DWORD): Creation flags.
+- **Returns**: Thread handle if successful.
 
 #### exit_thread(exit_code)
 
-Exits the current thread using `kernel32.dll`.
+Exits the current thread.
 
-- **Args**: `exit_code` (DWORD): The exit code for the thread.
+- **Args**: `exit_code` (DWORD): Exit code.
 
 ---
 
@@ -226,31 +226,31 @@ Exits the current thread using `kernel32.dll`.
 
 ### encrypt_data(data)
 
-Encrypts the provided data using AES (CBC mode) with a randomly generated IV.
+Encrypts data using AES (CBC mode) with a random IV.
 
-- **Args**: `data` (str): The data to encrypt.
-- **Returns**: The encrypted data as a base64 encoded string.
+- **Args**: `data` (str): Data to encrypt.
+- **Returns**: Encrypted data (base64).
 
 ### decrypt_data(encrypted_data)
 
-Decrypts the provided base64 encoded encrypted data using AES (CBC mode) with the IV extracted from the data.
+Decrypts base64 encoded data using AES (CBC mode).
 
-- **Args**: `encrypted_data` (str): The encrypted data (base64 encoded).
-- **Returns**: The decrypted data (string).
+- **Args**: `encrypted_data` (str): Encrypted data (base64).
+- **Returns**: Decrypted data (string).
 
 ### generate_key(expiration_seconds)
 
-Generates an encrypted key that encodes the current timestamp and an expiration timestamp (in seconds).
+Generates an encrypted key with expiration timestamp.
 
-- **Args**: `expiration_seconds` (int): The number of seconds after which the key expires.
-- **Returns**: The encrypted key (base64 encoded).
+- **Args**: `expiration_seconds` (int): Key expiration in seconds.
+- **Returns**: Encrypted key (base64).
 
 ### validate_key(encrypted_key)
 
-Validates the provided encrypted key by decrypting it and checking if the expiration timestamp is valid (i.e., the key has not expired).
+Validates encrypted key for expiration.
 
-- **Args**: `encrypted_key` (str): The encrypted key (base64 encoded).
-- **Returns**: `True` if the key is valid, `False` otherwise.
+- **Args**: `encrypted_key` (str): Encrypted key (base64).
+- **Returns**: `True` if valid, `False` otherwise.
 
 ---
 
@@ -258,25 +258,25 @@ Validates the provided encrypted key by decrypting it and checking if the expira
 
 ### _get_current_time()
 
-Returns the current timestamp in the format `[HH:MM:SS]`.
+Returns current timestamp `[HH:MM:SS]`.
 
 ### log_info(message)
 
-Logs an info message with the `[INFO]` prefix.
+Logs info message with `[INFO]` prefix.
 
-- **Args**: `message` (str): The message to log.
+- **Args**: `message` (str): Message to log.
 
 ### log_error(message)
 
-Logs an error message with the `[ERROR]` prefix.
+Logs error message with `[ERROR]` prefix.
 
-- **Args**: `message` (str): The message to log.
+- **Args**: `message` (str): Message to log.
 
 ### log_success(message)
 
-Logs a success message with the `[SUCCESS]` prefix.
+Logs success message with `[SUCCESS]` prefix.
 
-- **Args**: `message` (str): The message to log.
+- **Args**: `message` (str): Message to log.
 
 ---
 
