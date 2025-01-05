@@ -16,7 +16,7 @@ If you have suggestions create an issue and i will try and implement it :)
 - Logging
 - Text effects
 - JSON handling
-for simple imports just import AIO 
+- AIO Imports
 Requirements:
 - Python 3.11+
 - pip modules: cryptography, pywin32, requests
