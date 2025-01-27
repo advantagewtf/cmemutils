@@ -1,4 +1,3 @@
-from ctypes import wintypes
 import time
 import os
 import string
@@ -11,6 +10,7 @@ from cryptography.hazmat.backends import default_backend
 import base64
 import ctypes
 if os.name == "nt":
+    from ctypes import wintypes
     import win32api
     import win32process
     import win32con
@@ -48,30 +48,20 @@ written_mem = [] # to keep track for logging
 
 _ = "" #user input for the username / key
 __ = "" #user input for a password (usually not needed)
-SECRET_KEY = b"DrexxyDaGoat69"
+SECRET_KEY = b"DrexxyDaGoat6942"
 api = f"https://drexware.store/api/login/{VERSION}" 
 
 #        ^^^^ drexware api 
+# --- C++ funct ---
+def Sleep(seconds: int):
+    time.sleep(seconds)
 
-# --- Internet functions ---
-class internet:
-	@staticmethod
-	def get_ip() -> str:
-	        """Returns the external IP address of the machine."""
-	        try:
-	            response = requests.get("https://api.ipify.org?format=json")
-	            ip_info = response.json()
-	            return ip_info.get("ip", "Unable to fetch IP")
-	        except requests.RequestException as e:
-	            return f"Error getting external IP: {e}"
-	@staticmethod
-	def check_internet() -> bool:
-	        """Checks if the machine is connected to the internet."""
-	        try:
-	            requests.get("https://www.google.com", timeout=5)
-	            return True
-	        except requests.RequestException:
-	            return False
+def system(cmd:str):
+    os.system(cmd)
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
 # --- Random functions ---
 def randint(low: int, high: int) -> int:
     return random.randint(low, high)
@@ -93,56 +83,58 @@ def rand_string(length=16) -> str:
 
 
 # --- Windows Utilities ---
-class Windows:
-    @staticmethod
-    def clear():
-     os.system("cls" if os.name == "nt" else "clear")
 
-    @staticmethod
-    def run_command(cmd: str, capture_output=False):
-	    if capture_output:
-	        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-	        return result.stdout
-	    else:
-	        os.system(cmd)
-    @staticmethod
-    def check_disk_space(drive: str = "C:") -> str:
-        try:
-            result = subprocess.check_output(f"wmic logicaldisk where \"DeviceID='{drive}'\" get FreeSpace,Size", shell=True)
-            lines = result.decode("utf-8").splitlines()
-            free_space, total_space = map(int, lines[1].split())
-            free_space_gb = free_space / (1024 ** 3)
-            total_space_gb = total_space / (1024 ** 3)
-            return f"Free space: {free_space_gb:.2f} GB out of {total_space_gb:.2f} GB on drive {drive}"
-        except Exception as e:
-            return f"Error checking disk space: {e}"
-
-    @staticmethod
-    def list_running_processes() -> str:
-        try:
-            result = subprocess.check_output("tasklist", shell=True)
-            return result.decode("utf-8")
-        except Exception as e:
-            return f"Error listing processes: {e}"
-
-    @staticmethod
-    def get_system_info() -> str:
-        try:
-            result = subprocess.check_output("systeminfo", shell=True)
-            return result.decode("utf-8")
-        except Exception as e:
-            return f"Error retrieving system info: {e}"
-
-    @staticmethod
-    def shutdown_system(delay) -> None:
-        time.sleep(delay)
-        os.system("shutdown /s /f /t 0")
-
-    @staticmethod
-    def restart_system(delay) -> None:
-        time.sleep(delay)
-        os.system("shutdown /r /f /t 0")
 if os.name == "nt":
+    class Windows:
+        @staticmethod
+        def clear():
+            os.system("cls" if os.name == "nt" else "clear")
+
+        @staticmethod
+        def run_command(cmd: str, capture_output=False):
+            if capture_output:
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+                return result.stdout
+            else:
+                os.system(cmd)
+        @staticmethod
+        def check_disk_space(drive: str = "C:") -> str:
+            try:
+                result = subprocess.check_output(f"wmic logicaldisk where \"DeviceID='{drive}'\" get FreeSpace,Size", shell=True)
+                lines = result.decode("utf-8").splitlines()
+                free_space, total_space = map(int, lines[1].split())
+                free_space_gb = free_space / (1024 ** 3)
+                total_space_gb = total_space / (1024 ** 3)
+                return f"Free space: {free_space_gb:.2f} GB out of {total_space_gb:.2f} GB on drive {drive}"
+            except Exception as e:
+                return f"Error checking disk space: {e}"
+
+        @staticmethod
+        def list_running_processes() -> str:
+            try:
+                result = subprocess.check_output("tasklist", shell=True)
+                return result.decode("utf-8")
+            except Exception as e:
+                return f"Error listing processes: {e}"
+
+        @staticmethod
+        def get_system_info() -> str:
+            try:
+                result = subprocess.check_output("systeminfo", shell=True)
+                return result.decode("utf-8")
+            except Exception as e:
+                return f"Error retrieving system info: {e}"
+
+        @staticmethod
+        def shutdown_system(delay) -> None:
+            time.sleep(delay)
+            os.system("shutdown /s /f /t 0")
+
+        @staticmethod
+        def restart_system(delay) -> None:
+            time.sleep(delay)
+            os.system("shutdown /r /f /t 0")
+
     class WindowsAPI:
         def __init__(self):
             # Load kernel32 and user32 DLLs
@@ -203,8 +195,7 @@ if os.name == "nt":
             self.kernel32.ExitThread(exit_code)
 
 
-def delay(seconds: int):
-    time.sleep(seconds)
+
 
 # --- Key validation ---
 
@@ -269,14 +260,13 @@ class logging:
 
     @staticmethod
     def log(log_type: str, message: str):
-        global DEBUG
-        if DEBUG:
+       
             if log_type != " ":
                 timestamp = logging._get_current_time()
                 color = logging._get_color_for_log(log_type)
                 reset_color = "\033[0m"  # Reset color after log message
-                log_message = f"[{log_type}] {timestamp}: {message}"
-                print(f"{color}{log_message}{reset_color}")
+                log_message = f"{color}[{log_type}]{reset_color} {timestamp}: {message}"
+                print(f"{log_message}")
             else:
                 # For normal logs, just print the message without timestamp and brackets
                 color = logging._get_color_for_log(log_type)

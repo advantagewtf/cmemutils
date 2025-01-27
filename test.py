@@ -1,3 +1,10 @@
 from DrexLib.Drexlib import *
-keysystem = KeyValidation("DrexxyDaGoat69")
-print(keysystem.generate_key(500))
+# --- globals ---
+DEBUG = True
+log = logging
+
+
+clear()
+
+
+log.success("test")
