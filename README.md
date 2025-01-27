@@ -1,7 +1,11 @@
 
-# DrexLib - Drexxy's Hacking Library
+# DrexLib - Drexxy's Library
 
-- Version: 0.0.1
+- Version: 1.0.0
+# Coming soon:
+- pip install
+- other features
+
 ```
 This library contains various utilities to ease development.
 If you have any complaints i will not respond as its made for me. :)
@@ -16,7 +20,6 @@ If you have suggestions create an issue and i will try and implement it :)
 - Logging
 - Text effects
 - JSON handling
-- AIO Imports
 Requirements:
 - Python 3.11+
 - pip modules: cryptography, pywin32, requests
@@ -25,4 +28,8 @@ Requirements:
 Documentation located at `https://github.com/DrexWare/DrexLib/blob/main/docs.md`
 
 # Usages
-- Squirrel i know damn well you didnt read all of this and if you did say "Kid is black you are not all hail king drexxy"
+- Idk figure it out man
+
+# Updates
+- idk when: added all files with v0.0.1
+- 1/27/25: removed all extra files just left the AIO. 
