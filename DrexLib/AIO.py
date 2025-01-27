@@ -28,17 +28,19 @@ python 3.11.X
 pip modules: cryptography pywin32 requests
 """
 
+
 # --- Global variables ---
+
 DEBUG = False
 CONNECTED = False
-VERSION = "0.0.1"
+VERSION = "1.0.0"
 ADMIN = False
+
+# --- Memory ----
 proc = "" # handle to the process
 written_mem = [] # to keep track for logging
-addresses =  { "localplayer":0x123 } # memory adresses
-_read = 123 # a temporary read thing to see if its a valid adress
 
-# login stuff
+# --- Login ---
 
 _ = "" #user input for the username / key
 __ = "" #user input for a password (usually not needed)
@@ -66,6 +68,9 @@ class internet:
 	        except requests.RequestException:
 	            return False
 # --- Random functions ---
+def randint(low: int, high: int) -> int:
+    return random.randint(low, high)
+	
 def rand_string(length=16) -> str:
     """
     Generate a random string of specified length using ASCII letters.
@@ -81,8 +86,7 @@ def rand_string(length=16) -> str:
         rand_str += random.choice(string.ascii_letters)
     return rand_str
 
-def randint(low: int, high: int) -> int:
-    return random.randint(low, high)
+
 # --- Windows Utilities ---
 class Windows:
     @staticmethod
@@ -367,3 +371,4 @@ class JSON:
                 return json.load(json_file)
         except Exception as e:
             return f"Error loading JSON file: {e}"
+
