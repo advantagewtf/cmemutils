@@ -23,9 +23,11 @@ Drexxys Hacking Libary
 Built to create tools and just ease the python expirience
 
 ------
+
 necessities:
 python 3.11.X
 pip modules: cryptography pywin32 requests
+
 """
 
 
@@ -37,6 +39,7 @@ VERSION = "1.0.0"
 ADMIN = False
 
 # --- Memory ----
+
 proc = "" # handle to the process
 written_mem = [] # to keep track for logging
 
@@ -46,7 +49,8 @@ _ = "" #user input for the username / key
 __ = "" #user input for a password (usually not needed)
 SECRET_KEY = b"DrexxyDaGoat69"
 api = f"https://drexware.store/api/login/{VERSION}" 
-# ^^^^ drexware api 
+
+#        ^^^^ drexware api 
 
 # --- Internet functions ---
 class internet:

@@ -46,14 +46,13 @@
 
 - **DEBUG**: Boolean flag to enable/disable debug mode (default: `False`).
 - **CONNECTED**: Boolean flag for connection status (default: `False`).
-- **VERSION**: Current version of the library (default: `"0.0.1"`).
+- **VERSION**: Current version of the library (default: `"1.0.0"`).
 
 ## Cheat Variables
 
 - **proc**: Stores the process handle (default: empty string).
 - **written_mem**: Tracks written memory (default: empty list).
-- **addresses**: Dictionary of memory addresses (default: contains sample `"localplayer"` address).
-- **_read**: Temporary variable for reading memory.
+
 
 ## Login Variables
 
