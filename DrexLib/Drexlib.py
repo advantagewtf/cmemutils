@@ -91,6 +91,7 @@ def Sleep(seconds: int):
 
 def system(cmd:str):
     os.system(cmd)
+
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -100,15 +101,7 @@ def randint(low: int, high: int) -> int:
     return random.randint(low, high)
 	
 def rand_string(length=16) -> str:
-    """
-    Generate a random string of specified length using ASCII letters.
 
-    Args:
-        length (int): The length of the random string to generate. Defaults to 16.
-
-    Returns:
-        str: A randomly generated string of the specified length.
-    """
     rand_str = ""
     for i in range(length):
         rand_str += random.choice(string.ascii_letters)
@@ -400,3 +393,98 @@ class JSON:
         except Exception as e:
             return f"Error loading JSON file: {e}"
 
+# --- memmory ---
+class Memory:
+    def __init__(self, pid):
+        self.pid = pid
+        self.process_handle = self.open_process()
+
+    def open_process(self):
+        PROCESS_ALL_ACCESS = 0x1F0FFF
+        handle = ctypes.windll.kernel32.OpenProcess(PROCESS_ALL_ACCESS, False, self.pid)
+        if not handle:
+            raise Exception("Could not open process")
+        return handle
+
+    def close_process(self):
+        ctypes.windll.kernel32.CloseHandle(self.process_handle)
+
+    def read_int(self, address):
+        buffer = ctypes.c_int()
+        bytes_read = ctypes.c_size_t()
+        ctypes.windll.kernel32.ReadProcessMemory(
+            self.process_handle,
+            address,
+            ctypes.byref(buffer),
+            ctypes.sizeof(buffer),
+            ctypes.byref(bytes_read)
+        )
+        return buffer.value
+
+    def write_int(self, address, value):
+        buffer = ctypes.c_int(value)
+        ctypes.windll.kernel32.WriteProcessMemory(
+            self.process_handle,
+            address,
+            ctypes.byref(buffer),
+            ctypes.sizeof(buffer),
+            None
+        )
+
+    def read_float(self, address):
+        buffer = ctypes.c_float()
+        bytes_read = ctypes.c_size_t()
+        ctypes.windll.kernel32.ReadProcessMemory(
+            self.process_handle,
+            address,
+            ctypes.byref(buffer),
+            ctypes.sizeof(buffer),
+            ctypes.byref(bytes_read)
+        )
+        return buffer.value
+
+    def write_float(self, address, value):
+        buffer = ctypes.c_float(value)
+        ctypes.windll.kernel32.WriteProcessMemory(
+            self.process_handle,
+            address,
+            ctypes.byref(buffer),
+            ctypes.sizeof(buffer),
+            None
+        )
+
+    def read_string(self, address, length):
+        buffer = ctypes.create_string_buffer(length)
+        bytes_read = ctypes.c_size_t()
+        ctypes.windll.kernel32.ReadProcessMemory(
+            self.process_handle,
+            address,
+            buffer,
+            length,
+            ctypes.byref(bytes_read)
+        )
+        return buffer.value.decode('utf-8')
+
+    def write_string(self, address, value):
+        encoded_string = value.encode('utf-8')
+        length = len(encoded_string) + 1  # +1 for null terminator
+        buffer = ctypes.create_string_buffer(encoded_string, length)
+        ctypes.windll.kernel32.WriteProcessMemory(
+            self.process_handle,
+            address,
+            buffer,
+            length,
+            None
+        )
+
+    def __del__(self):
+        self.close_process()
+
+# Example of how to use the MemoryManipulator class:
+# pid = 1234  # Replace with process ID
+# mem = Memory(pid)
+# address = 0x00FFAA00  # Replace with the correct address
+# int_value = mem.read_int(address)
+# print(f"Read Integer: {int_value}")
+# mem.write_int(address, 42)
+# print("Wrote Integer: 42")
