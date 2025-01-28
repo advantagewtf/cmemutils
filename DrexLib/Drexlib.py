@@ -1,3 +1,4 @@
+import math
 import time
 import os
 import string
@@ -15,7 +16,6 @@ if os.name == "nt":
     import win32process
     import win32con
     from win32api import OpenProcess
-import requests
 
 """
 -----
@@ -52,6 +52,39 @@ SECRET_KEY = b"DrexxyDaGoat6942"
 api = f"https://drexware.store/api/login/{VERSION}" 
 
 #        ^^^^ drexware api 
+
+
+# --- types ---
+
+
+class Vector3:
+    def __init__(self, x=0, y=0, z=0):
+        self.x = x
+        self.y = y
+        self.z = z
+
+    def __repr__(self):
+        return f"Vector3({self.x}, {self.y}, {self.z})"
+
+    def __add__(self, other):
+        if isinstance(other, Vector3):
+            return Vector3(self.x + other.x, self.y + other.y, self.z + other.z)
+        return NotImplemented
+
+    def __sub__(self, other):
+        if isinstance(other, Vector3):
+            return Vector3(self.x - other.x, self.y - other.y, self.z - other.z)
+        return NotImplemented
+
+    def __mul__(self, scalar):
+        if isinstance(scalar, (int, float)):
+            return Vector3(self.x * scalar, self.y * scalar, self.z * scalar)
+        return NotImplemented
+
+   
+
+
+        
 # --- C++ funct ---
 def Sleep(seconds: int):
     time.sleep(seconds)
